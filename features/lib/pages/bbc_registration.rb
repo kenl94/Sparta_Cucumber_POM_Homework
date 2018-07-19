@@ -14,6 +14,13 @@ class BBC_Registration
   PASSWORD_INPUT = 'Password'
   POSTCODE = 'Postcode'
   REGISTRATION_SUBMIT = '#submit-button'
+  WRONG_PASSWORD = "wrong1"
+  PASSWORD_ERROR = "#form-message-password"
+  EMAIL = "kaylii.chyanne@lm0k.com"
+  INVALID_EMAIL = "hehemail.com"
+  WRONG_POSTCODE = "222333"
+  WRONG_POSTCODE_ERROR = "#form-message-postcode > p"
+  LONG_POSTCODE = "Longer than expected"
 
 # # Don't need initialize, because it is set up in rspec and it does this before pulling in fules.
 # @session is set up in the test, so don't need to set it up
@@ -49,14 +56,48 @@ class BBC_Registration
     sleep 1
   end
 
+  def fill_in_existing_email
+    fill_in EMAIL_INPUT, with: EMAIL
+    sleep 1
+  end
+
+  def fill_in_invalid_email
+    fill_in EMAIL_INPUT, with: INVALID_EMAIL
+  end
+
+  def find_error_email
+    find("#form-message-email > p").text
+  end
+
   def fill_in_password
     fill_in PASSWORD_INPUT, with: "Password@1"
     sleep 1
   end
 
+  def fill_in_wrong_password
+    fill_in PASSWORD_INPUT, with: WRONG_PASSWORD
+    sleep 1
+  end
+
+  def find_wrong_password
+    find(PASSWORD_ERROR).text
+  end
+
   def fill_in_postcode
     fill_in POSTCODE, with: "TW10 6TF"
     sleep 1
+  end
+
+  def fill_in_wrong_postcode
+    fill_in POSTCODE, with: WRONG_POSTCODE
+  end
+
+  def long_postcode
+    fill_in POSTCODE, with: LONG_POSTCODE
+  end
+
+  def find_wrong_postcode
+    find(WRONG_POSTCODE_ERROR).text
   end
 
   def choose_gender
@@ -81,7 +122,7 @@ class BBC_Registration
   end
 
   def check_true
-    find('title').text
+    find("#container > div > div > div > div.page__wrapper > div.page__grid-wrapper > div.page__content-wrapper > div > h1 > span").text
     # has_content?("Thanks. You're now signed in.")
   end
 
